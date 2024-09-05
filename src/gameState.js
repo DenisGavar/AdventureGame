@@ -18,10 +18,10 @@ class GameState {
   navigateTo(screen) {
     switch (screen) {
       case 'mainScreen':
-        import('./mainScreen.js').then(module => module.mainScreen());
+        import('./screens/mainScreen.js').then(module => module.mainScreen());
         break;
       case 'characterScreen':
-        import('./characterScreen.js').then(module => module.characterScreen());
+        import('./screens/characterScreen.js').then(module => module.characterScreen());
         break;
       default:
         console.log('Invalid screen');

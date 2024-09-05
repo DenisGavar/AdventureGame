@@ -1,7 +1,7 @@
 const readline = require("readline-sync");
-const { startNewGame, loadGame, continueGame } = require("./gameEngine");
-const saveGameData = require("./save");
-const gameState = require("./gameState");
+const { startNewGame, loadGame, continueGame } = require("../gameEngine");
+const saveGameData = require("../save");
+const gameState = require("../gameState");
 
 function mainScreen() {
   console.clear();
