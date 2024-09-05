@@ -1,66 +1,58 @@
-const readline = require('readline-sync');
-const Character = require('./character');
-const CharacterClass = require('./class');
-const saveGameData = require('./save');
-const loadGameData = require('./load');
-
-
-let currentCharacter = null;
+const readline = require("readline-sync");
+const _ = require("lodash");
+const Character = require("./character");
+const CharacterClass = require("./class");
+const loadGameData = require("./load");
+const gameState = require("./gameState");
 
 function startNewGame() {
   console.clear();
-  console.log('--- New Game ---');
+  console.log("--- New Game ---");
 
   // Create a new character
-  const name = readline.question('Enter your character\'s name: ');
-  const age = readline.questionInt('Enter your character\'s age: ');
+  const name = readline.question("Enter your character's name: ");
+  const age = readline.questionInt("Enter your character's age: ");
 
   // Choose a class
-  const classChoice = readline.keyInSelect(['Mage', 'Fighter'], 'Choose your class: ');
-  const classTypes = ['Mage', 'Fighter'];
-  const abilities = ['Fireball', 'Sword Slash'];
-  const chosenClass = new CharacterClass(classTypes[classChoice], abilities[classChoice]);
+  const classChoice = readline.keyInSelect(
+    ["Mage", "Fighter"],
+    "Choose your class: "
+  );
+  const classTypes = ["Mage", "Fighter"];
+  const abilities = ["Fireball", "Sword Slash"];
+  const chosenClass = new CharacterClass(
+    classTypes[classChoice],
+    abilities[classChoice]
+  );
 
-  // Create the character with class-defined strength and intelligence
-  currentCharacter = new Character(name, age, chosenClass);
-  mainScreen();
+  // Create the character
+  let currentCharacter = new Character(name, age, chosenClass);
+  gameState.setCharacter(currentCharacter);
+  gameState.navigateTo("characterScreen");
 }
 
 function loadGame() {
-
   gameData = loadGameData();
-  currentCharacter = Object.assign(Character.prototype, gameData)
+  currentCharacter = Object.assign(Character.prototype, gameData);
+  gameState.setCharacter(currentCharacter);
 
-  if (currentCharacter) {
-    console.log('Game loaded successfully!');
-    mainScreen();
+  if (gameState.getCharacter() && !_.isEmpty(gameState.getCharacter())) {
+    console.log("Game loaded successfully!");
+    gameState.navigateTo("characterScreen");
   } else {
-    console.log('No saved game found. Starting a new game.');
+    console.log("No saved game found. Starting a new game.");
     startNewGame();
   }
 }
 
-function mainScreen() {
-  console.clear();
-  currentCharacter.displayStats();
-
-  console.log('\nOptions:');
-  console.log('1. Save Game');
-  console.log('2. Back to Main Menu');
-  
-  const choice = readline.question('Choose an option: ');
-
-  switch (choice) {
-    case '1':
-      saveGameData(currentCharacter);
-      break;
-    case '2':
-      mainMenu();
-      break;
-    default:
-      console.log('Invalid option. Returning to main screen...');
-      mainScreen();
+function continueGame(currentCharacter) {
+  if (gameState.getCharacter() && !_.isEmpty(gameState.getCharacter())) {
+    console.log("Game loaded successfully!");
+    gameState.navigateTo("characterScreen");
+  } else {
+    console.log("No existing game found. Starting a new game.");
+    startNewGame();
   }
 }
 
-module.exports = { startNewGame, loadGame };
+module.exports = { startNewGame, loadGame, continueGame };

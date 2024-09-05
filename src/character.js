@@ -1,5 +1,4 @@
 const CharacterClass = require('./class');
-const getRandomArbitrary = require('../lib/math')
 
 
 class Character {
@@ -9,7 +8,7 @@ class Character {
     this.characterClass = characterClass; // Instance of CharacterClass
     this.strength = this.characterClass.generateStrength();
     this.intelligence = this.characterClass.generateIntelligence();
-    this.health = Math.floor(this.strength * 10 * getRandomArbitrary(0.9, 1.1));
+    this.health = Math.floor(this.strength * 10);
     this.experience = 0;
     this.inventory = [];
   }
