@@ -1,6 +1,4 @@
 const readline = require("readline-sync");
-const { startNewGame, loadGame, continueGame } = require("../gameEngine");
-const saveGameData = require("../save");
 const gameState = require("../gameState");
 
 function mainScreen() {
@@ -15,13 +13,13 @@ function mainScreen() {
 
   switch (choice) {
     case "1":
-      startNewGame();
+      gameState.navigateTo("newGameScreen");
       break;
     case "2":
-      loadGame();
+      gameState.load();
       break;
     case "3":
-      continueGame();
+      gameState.continueGame();
       break;
     case "4":
       exit();
@@ -34,7 +32,7 @@ function mainScreen() {
 
 function exit() {
   console.log("Saving game data...");
-  saveGameData();
+  gameState.save();
   process.exit(0);
 }
 

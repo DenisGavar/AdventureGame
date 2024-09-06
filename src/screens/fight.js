@@ -2,7 +2,6 @@ const readline = require("readline-sync");
 const _ = require("lodash");
 const gameState = require("../gameState");
 const Monster = require("../classes/monster");
-const { startNewGame } = require("../gameEngine");
 
 async function fetchMonsterStats() {
   try {
@@ -77,17 +76,17 @@ async function fightScreen() {
   }
 
   gameState.setActiveMonster(null);
+  gameState.save();
 
-  // Return to the character menu
-  console.log("\nPress any key.");
-
+  // Return to the character menu or new game
+  console.log("\nPress any key to continue.");
   process.stdin.setRawMode(true);
   process.stdin.resume();
   process.stdin.once("data", () => {
     process.stdin.setRawMode(false);
     process.stdin.pause();
     if (dead) {
-      startNewGame();
+      gameState.navigateTo("newGameScreen");
     } else {
       gameState.navigateTo("characterScreen");
     }

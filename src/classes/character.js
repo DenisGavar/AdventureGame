@@ -5,7 +5,8 @@ class Character {
     this.characterClass = characterClass; // Instance of CharacterClass
     this.strength = this.characterClass.generateStrength();
     this.intelligence = this.characterClass.generateIntelligence();
-    this.health = Math.floor(this.strength * 10);
+    this.health = this.strength * 10;
+    this.maxHealth = this.health;
     this.experience = 0;
     this.inventory = [];
   }
@@ -16,7 +17,7 @@ class Character {
     console.log(`Class: ${this.characterClass.type}`);
     console.log(`Strength: ${this.strength}`);
     console.log(`Intelligence: ${this.intelligence}`);
-    console.log(`Health: ${this.health}`);
+    console.log(`Health: ${this.health}/${this.maxHealth}`);
     console.log(`Special Ability: ${this.characterClass.specialAbility}`);
     console.log(`Experience: ${this.experience}`);
     console.log(`Inventory: ${this.inventory.join(", ") || "Empty"}`);
