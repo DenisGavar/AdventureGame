@@ -1,7 +1,8 @@
 const readline = require("readline-sync");
 const _ = require("lodash");
-const Character = require("./character");
-const CharacterClass = require("./class");
+const Character = require("./classes/character");
+const CharacterClass = require("./classes/class");
+const Monster = require("./classes/monster");
 const loadGameData = require("./load");
 const gameState = require("./gameState");
 
@@ -33,8 +34,15 @@ function startNewGame() {
 
 function loadGame() {
   gameData = loadGameData();
-  currentCharacter = Object.assign(Character.prototype, gameData);
-  gameState.setCharacter(currentCharacter);
+  Object.assign(gameState, gameData);
+
+  // Reassign prototypes
+  if (gameState.getCharacter()) {
+    Object.setPrototypeOf(gameState.Character, Character.prototype);
+  }
+  if (gameState.getActiveMonster()) {
+    Object.setPrototypeOf(gameState.ActiveMonster, Monster.prototype);
+  }
 
   if (gameState.getCharacter() && !_.isEmpty(gameState.getCharacter())) {
     console.log("Game loaded successfully!");

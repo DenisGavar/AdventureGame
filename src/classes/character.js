@@ -1,6 +1,3 @@
-const CharacterClass = require('./class');
-
-
 class Character {
   constructor(name, age, characterClass) {
     this.name = name;
@@ -22,7 +19,7 @@ class Character {
     console.log(`Health: ${this.health}`);
     console.log(`Special Ability: ${this.characterClass.specialAbility}`);
     console.log(`Experience: ${this.experience}`);
-    console.log(`Inventory: ${this.inventory.join(', ') || 'Empty'}`);
+    console.log(`Inventory: ${this.inventory.join(", ") || "Empty"}`);
   }
 }
 

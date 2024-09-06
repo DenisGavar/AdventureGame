@@ -2,6 +2,7 @@ class GameState {
   constructor() {
     if (!GameState.instance) {
       this.Character = null;
+      this.ActiveMonster = null;
       GameState.instance = this;
     }
     return GameState.instance;
@@ -15,16 +16,32 @@ class GameState {
     return this.Character;
   }
 
+  setActiveMonster(monster) {
+    this.ActiveMonster = monster;
+  }
+
+  getActiveMonster() {
+    return this.ActiveMonster;
+  }
+
   navigateTo(screen) {
     switch (screen) {
-      case 'mainScreen':
-        import('./screens/mainScreen.js').then(module => module.mainScreen());
+      case "mainScreen":
+        import("./screens/main.js").then((module) => module.mainScreen());
         break;
-      case 'characterScreen':
-        import('./screens/characterScreen.js').then(module => module.characterScreen());
+      case "characterScreen":
+        import("./screens/character.js").then((module) =>
+          module.characterScreen()
+        );
+        break;
+      case "fightScreen":
+        import("./screens/fight.js").then((module) => module.fightScreen());
+        break;
+      case "guessingGame":
+        import("./screens/guessingGame.js").then((module) => module.guessingGameScreen());
         break;
       default:
-        console.log('Invalid screen');
+        console.log("Invalid screen");
     }
   }
 }
