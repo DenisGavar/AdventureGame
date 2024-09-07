@@ -60,7 +60,7 @@ async function fightScreen() {
       console.log(
         `You defeated the monster and earn ${earnedExperience} experience points!`
       );
-      character.experience += earnedExperience;
+      character.updateExperience(earnedExperience);
       break;
     }
 
