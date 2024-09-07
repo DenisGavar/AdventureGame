@@ -1,4 +1,5 @@
 const readline = require("readline-sync");
+const clear = require("console-clear");
 const _ = require("lodash");
 const gameState = require("../gameState");
 const Monster = require("../classes/monster");
@@ -27,7 +28,7 @@ async function fetchMonsterStats() {
 async function fightScreen() {
   const character = gameState.getCharacter();
 
-  console.clear();
+  clear();
   character.displayStats();
   console.log("---------------");
 

@@ -1,10 +1,11 @@
 const readline = require("readline-sync");
+const clear = require("console-clear");
 const gameState = require("../gameState");
 const Character = require("../classes/character");
 const CharacterClass = require("../classes/class");
 
 function newGameScreen() {
-  console.clear();
+  clear();
   console.log("--- New Game ---");
 
   // Create a new character

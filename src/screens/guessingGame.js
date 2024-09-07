@@ -1,8 +1,9 @@
 const readline = require("readline-sync");
+const clear = require("console-clear");
 const gameState = require("../gameState");
 
 function guessingGameScreen() {
-  console.clear();
+  clear();
   console.log("Welcome to the Guess the number game!");
   console.log("Rules:");
   console.log("Players can bet any number of points before the game begins.");

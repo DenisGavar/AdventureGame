@@ -1,8 +1,9 @@
 const readline = require("readline-sync");
+const clear = require("console-clear");
 const gameState = require("../gameState");
 
 function mainScreen() {
-  console.clear();
+  clear();
   console.log("--- Adventure Game ---");
   console.log("1. Start New Game");
   console.log("2. Load Game");

@@ -1,8 +1,9 @@
 const readline = require("readline-sync");
+const clear = require("console-clear");
 const gameState = require("../gameState");
 
 function characterScreen() {
-  console.clear();
+  clear();
 
   gameState.getCharacter().displayStats();
 
