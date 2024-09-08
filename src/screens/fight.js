@@ -4,10 +4,10 @@ const _ = require("lodash");
 const gameState = require("../gameState");
 const Monster = require("../classes/monster");
 
-// Get the monster from the
+// Function to fetch a monster from
 // https://www.dnd5eapi.co
 
-// just for information, we can also use the following api
+// Just for information, we can also use the following api
 // https://api.open5e.com/v1/
 
 async function fetchMonsterStats() {
@@ -87,9 +87,35 @@ async function fightScreen() {
   }
 
   // Check if the character is dead
-  const dead = character.health <= 0;
+  // TODO: refactor the logic with dead
+  let dead = character.health <= 0;
   if (dead) {
-    gameState.setCharacter(null);
+    // Offer to play a quiz to stay alive
+    console.log("\nDo you want to stay alive? Play a quiz game.");
+    console.log("1. Play");
+    console.log("2. Die");
+
+    // Check the choice with regex
+    const pattern = /^(1|2)$/;
+    let choice = 0;
+    do {
+      choice = readline.question("Choose an option: ");
+    } while (!pattern.test(choice));
+
+    switch (choice) {
+      case "1":
+        await gameState.navigateTo("quizScreen");
+        dead = character.health <= 0;
+        break;
+      case "2":
+        break;
+      default:
+        console.log("Invalid option.");
+        gameState.navigateTo("characterScreen");
+    }
+    if (dead) {
+      gameState.setCharacter(null);
+    }
   }
 
   gameState.setActiveMonster(null);

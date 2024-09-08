@@ -9,6 +9,7 @@ AdventureGame is a text-based adventure game inspired by D&D, implemented in Jav
 - **Mini-Games**: Includes a number guessing game.
 - **Save and Load**: Save your game progress and load it anytime.
 - **Level Progression**: Gain experience and level up as your character fights monsters.
+- **Quizzes to Stay Alive**: After losing a battle, play a quiz game to stay alive and continue your adventure.
 
 ## Getting Started
 

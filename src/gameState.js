@@ -36,7 +36,7 @@ class GameState {
   }
 
   // Function for changing the game screen
-  navigateTo(screen) {
+  async navigateTo(screen) {
     switch (screen) {
       case "mainScreen":
         import("./screens/main.js").then((module) => module.mainScreen());
@@ -56,6 +56,9 @@ class GameState {
         break;
       case "newGameScreen":
         import("./screens/newGame.js").then((module) => module.newGameScreen());
+        break;
+      case "quizScreen":
+        await import("./screens/quiz.js").then((module) => module.quizScreen());
         break;
       default:
         console.log("Invalid screen");
@@ -108,7 +111,7 @@ class GameState {
     }
   }
 
-  // Check if the current game is found or load it from a file 
+  // Check if the current game is found or load it from a file
   continueGame() {
     if (this.getCharacter() && !_.isEmpty(this.getCharacter())) {
       console.log("Game loaded successfully!");
