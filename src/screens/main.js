@@ -32,8 +32,7 @@ function mainScreen() {
 }
 
 function exit() {
-  console.log("Saving game data...");
-  gameState.save();
+  // TODO: save the game data, but notto overwrite it with empty data
   process.exit(0);
 }
 

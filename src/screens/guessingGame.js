@@ -29,6 +29,7 @@ function guessingGameScreen() {
     bet = readline.questionInt("Enter your bet: ");
   } while (bet <= 0);
 
+  // Guessing
   while (true) {
     do {
       guess = readline.questionInt("Guess the number (1-100): ");
@@ -59,10 +60,16 @@ function guessingGameScreen() {
   character.health += earnedHP;
   console.log(`Your HP: ${character.health}/${character.maxHealth}`);
 
+  // Check if the character is dead
   const dead = character.health <= 0;
+  if (dead) {
+    console.log("You are dead. Start a new game.");
+    gameState.setCharacter(null);
+  }
+
   gameState.save();
 
-  // Return to the character menu or new game
+  // Return to the character screen or new game screen
   console.log("\nPress any key to continue.");
   process.stdin.setRawMode(true);
   process.stdin.resume();

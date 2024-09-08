@@ -2,7 +2,7 @@ class Character {
   constructor(name, age, characterClass) {
     this.name = name;
     this.age = age;
-    this.characterClass = characterClass; // Instance of CharacterClass
+    this.characterClass = characterClass;
     this.strength = this.characterClass.generateStrength();
     this.intelligence = this.characterClass.generateIntelligence();
     this.health = this.strength * 10;
@@ -12,6 +12,7 @@ class Character {
     this.inventory = [];
   }
 
+  // Display character stats
   displayStats() {
     console.log(`\n${this.name}'s Stats:`);
     console.log(`Age: ${this.age}`);
@@ -25,6 +26,7 @@ class Character {
     console.log(`Inventory: ${this.inventory.join(", ") || "Empty"}`);
   }
 
+  // Check if you need to level up the character
   checkLevelUp() {
     while (this.experience >= Math.pow(10, this.level)) {
       this.level++;
@@ -38,6 +40,7 @@ class Character {
     }
   }
 
+  // Update experience value
   updateExperience(value) {
     this.experience += value;
     this.checkLevelUp();

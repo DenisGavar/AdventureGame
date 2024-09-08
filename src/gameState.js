@@ -1,3 +1,6 @@
+// Singletone pattern
+// All information about the state of the game
+
 const filePath = "./assets/characters.json";
 const fs = require("fs");
 const _ = require("lodash");
@@ -14,6 +17,7 @@ class GameState {
     return GameState.instance;
   }
 
+  // Operations with the character
   setCharacter(character) {
     this.Character = character;
   }
@@ -22,6 +26,7 @@ class GameState {
     return this.Character;
   }
 
+  // Operations with the monster
   setActiveMonster(monster) {
     this.ActiveMonster = monster;
   }
@@ -30,6 +35,7 @@ class GameState {
     return this.ActiveMonster;
   }
 
+  // Function for changing the game screen
   navigateTo(screen) {
     switch (screen) {
       case "mainScreen":
@@ -50,16 +56,16 @@ class GameState {
         break;
       case "newGameScreen":
         import("./screens/newGame.js").then((module) => module.newGameScreen());
+        break;
       default:
         console.log("Invalid screen");
+        // To the main screen
+        this.navigateTo("mainScreen");
     }
   }
 
   // Save game data to a file
   save() {
-    if (this.getCharacter().health <= 0) {
-      this.setCharacter(null);
-    }
     try {
       fs.writeFileSync(filePath, JSON.stringify(this, null, 2));
       console.log("Game saved successfully!");
@@ -85,9 +91,13 @@ class GameState {
           Object.setPrototypeOf(this.ActiveMonster, Monster.prototype);
         }
 
+        // Check if the character is found
         if (this.getCharacter() && !_.isEmpty(this.getCharacter())) {
           console.log("Game loaded successfully!");
           this.navigateTo("characterScreen");
+        } else {
+          console.log("No active character found. Starting a new game.");
+          this.navigateTo("newGameScreen");
         }
       } catch (err) {
         console.error("Error loading game data:", err.message);
@@ -98,6 +108,7 @@ class GameState {
     }
   }
 
+  // Check if the current game is found or load it from a file 
   continueGame() {
     if (this.getCharacter() && !_.isEmpty(this.getCharacter())) {
       console.log("Game loaded successfully!");

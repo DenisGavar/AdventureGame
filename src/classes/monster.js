@@ -5,6 +5,7 @@ class Monster {
     this.health = health;
   }
 
+  // Display monster stats
   displayStats() {
     console.log(`\n${this.name}'s Stats:`);
     console.log(`Strength: ${this.strength}`);
